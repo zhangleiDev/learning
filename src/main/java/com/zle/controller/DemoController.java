@@ -14,7 +14,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
 /**
- * Hello world!!!
+ * Hello world!
  *
  */
 @Api(description = "用户接口")
