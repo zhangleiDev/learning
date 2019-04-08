@@ -29,6 +29,13 @@ public class MybatisplusApplicationTests {
         userList.forEach(System.out::println);
     }
     @Test
+    public void testSelectAll() {
+        System.out.println(("----- selectAll method test ------"));
+        List<User> userList = userDao.queryAll();
+        Assert.assertEquals(5, userList.size());
+        userList.forEach(System.out::println);
+    }
+    @Test
     public void testInsert(){
         User user = new User();
         user.setAge(10);
