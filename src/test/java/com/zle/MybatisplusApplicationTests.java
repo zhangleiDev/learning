@@ -26,12 +26,12 @@ public class MybatisplusApplicationTests {
     @Test
     public void testSession2(){
         userService.testSession2();
-        System.out.println("Session2 end");;
+        System.out.println("Session2 end");
     }
     @Test
     public void testSession(){
         userService.testSession();
-        System.out.println("end");;
+        System.out.println("end");
     }
 
     @Test

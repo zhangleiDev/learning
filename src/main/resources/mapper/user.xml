@@ -4,6 +4,13 @@
 <mapper namespace = "com.zle.dao.UserDao">
 <select id="queryAll" resultType="com.zle.entity.User">
     select * from user
+     <where>
+         1=1
+         <if test="age!=null">
+            and age > 20
+         </if>
+
+     </where>
 
 </select>
 </mapper>
