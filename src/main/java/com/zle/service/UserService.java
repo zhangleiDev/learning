@@ -30,7 +30,7 @@ public class UserService {
     public void testSession2(){
         SqlSession sqlSession = sessionFactory.openSession();
         UserDao mapper = sqlSession.getMapper(UserDao.class);
-        mapper.queryAll().forEach(a-> System.out.println(a));
+        mapper.queryAll(1).forEach(a-> System.out.println(a));
         sqlSession.close();
     }
 

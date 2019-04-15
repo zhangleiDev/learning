@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface UserDao extends BaseMapper<User> {
 
-public List<User> queryAll();
+    public List<User> queryAll();
+    public List<User> queryAll(int a);
 
 }
