@@ -2,6 +2,7 @@ package com.zle;
 
 import com.zle.dao.UserDao;
 import com.zle.entity.User;
+import com.zle.service.UserService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +21,18 @@ public class MybatisplusApplicationTests {
     }
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private UserService userService;
+    @Test
+    public void testSession2(){
+        userService.testSession2();
+        System.out.println("Session2 end");;
+    }
+    @Test
+    public void testSession(){
+        userService.testSession();
+        System.out.println("end");;
+    }
 
     @Test
     public void testSelect() {
