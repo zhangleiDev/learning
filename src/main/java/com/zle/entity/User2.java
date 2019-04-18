@@ -11,16 +11,12 @@ import java.util.Date;
 
 @Data
 @ToString
-public class User {
+public class User2 {
 
-    @TableId(type = IdType.AUTO)
     private Integer id;
     private String name;
-    private Integer age;
+    private Integer age2;
     private String email;
-    private Date date;
-    private Date dateTime;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date stamp;
+
 
 }

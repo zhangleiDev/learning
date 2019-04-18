@@ -1,5 +1,8 @@
 package com.zle.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.zle.dao.UserDao;
 import com.zle.entity.User;
 import org.apache.ibatis.session.SqlSession;
@@ -7,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Service
@@ -30,7 +34,15 @@ public class UserService {
     public void testSession2(){
         SqlSession sqlSession = sessionFactory.openSession();
         UserDao mapper = sqlSession.getMapper(UserDao.class);
-        mapper.queryAll(1).forEach(a-> System.out.println(a));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        mapper.queryAll(1,"2019-04-15 15:13:02").forEach(a-> {
+            try {
+                System.out.println(new ObjectMapper().writeValueAsString(a));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            //System.out.println("Date:"+sdf.format(a.getDate())+" DateTime:"+sdf.format(a.getDateTime())+" TimeStamp "+sdf.format(a.getStamp()));
+        });
         sqlSession.close();
     }
 
