@@ -7,6 +7,7 @@ import lombok.Data;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserDao extends BaseMapper<User> {
 
@@ -30,5 +31,44 @@ public interface UserDao extends BaseMapper<User> {
     @Select("select * from user" )
     public List<User2> queryAll2();
 
+    /**
+     * 通过 useGeneratedKeys
+     * 不指定时,默认主键字段为id
+     * @param user
+     * @return
+     */
+    @Insert({"insert into user(name,age,email)",
+                " values(#{name},#{age},#{email})",
+        })
+    @Options(useGeneratedKeys = true)
+    public int insert2(User user);
+
+    /**
+     * 用SELECT LAST_INSERT_ID() 方式 获取新增主键
+     * @param user
+     * @return
+     */
+    @Insert({"insert into user(name,age,email)",
+                " values(#{name},#{age},#{email})",
+        })
+    @SelectKey(statement ="SELECT LAST_INSERT_ID()",
+            keyProperty ="id",
+            resultType = Integer.class ,
+            before = false)
+    public int insert3(User user);
+
+    /**
+     * 类中自定义sql
+     * @param id
+     * @return
+     */
+    @SelectProvider(type = UserDaoSql.class,method = "queryId")
+    public User2 queryId2(int id);
+
+    public int batchInsert(List<User> users);
+
+    public List<User> testSelect2(Map users);
+
+    public List<User> testSelect3(User user);
 
 }

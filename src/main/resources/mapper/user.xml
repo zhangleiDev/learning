@@ -46,4 +46,34 @@
         insert into user(name,age)
         values (#{name},#{age})
     </insert>
+    <!--
+    collection取值:  List<> 默认为list
+                    集合默认为 collection
+                    数组默认为 array
+                    也可以用@Param指定名称
+    MyBatis 3.3.1以后可以使用useGeneratedKeys获取批量生成的自增主键,但是只支持mysql
+    -->
+    <insert id="batchInsert" useGeneratedKeys="true" keyProperty="id">
+        insert into user(name,age)
+        values
+        <foreach collection="list" item="user"  separator=",">
+            (#{user.name},#{user.age})
+        </foreach>
+    </insert>
+
+    <select id="testSelect2" resultMap="User">
+        select * from user
+        <where>
+            <foreach collection="_parameter" item="val" index="key" separator="and">
+                #{key}=#{val}
+            </foreach>
+        </where>
+    </select>
+    <select id="testSelect3" resultMap="User">
+        select * from user
+        <where>
+            <bind name="nameLike" value="'%'+name+'%'"/>
+            name like #{nameLike}
+        </where>
+    </select>
 </mapper>
