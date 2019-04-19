@@ -1,5 +1,6 @@
 package com.zle;
 
+import com.google.common.base.Strings;
 import com.zle.dao.UserDao;
 import com.zle.entity.User;
 import com.zle.service.UserService;
@@ -27,6 +28,22 @@ public class MybatisplusApplicationTests {
     private UserDao userDao;
     @Autowired
     private UserService userService;
+
+
+
+    /**
+     * if test 使用自定义方法判断
+     */
+    @Test
+    public void testSelect4() {
+        User user = new User();
+        user.setName("");
+        List<User> userList = userDao.testSelect4(user);
+
+        userList.forEach(System.out::println);
+
+    }
+
 
     /**
      * bind标签demo:
@@ -61,6 +78,7 @@ public class MybatisplusApplicationTests {
      */
     @Test
     public void testBatchInsert(){
+        Strings.isNullOrEmpty("");
         User user = new User();
         user.setAge(10);
         user.setEmail("fw@r23.cn");

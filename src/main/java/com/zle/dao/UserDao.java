@@ -71,4 +71,6 @@ public interface UserDao extends BaseMapper<User> {
 
     public List<User> testSelect3(User user);
 
+    public List<User> testSelect4(User user);
+
 }

@@ -76,4 +76,14 @@
             name like #{nameLike}
         </where>
     </select>
+    <select id="testSelect4" resultMap="User">
+        select * from user
+        <where>
+            <if test="!@com.zle.tools.StringTools@isNullOrEmpty(name)">
+
+                name = #{name}
+            </if>
+
+        </where>
+    </select>
 </mapper>
