@@ -33,7 +33,7 @@ public class Build {
         //生成的字段位于同一实体中
         Context context = new Context(ModelType.FLAT);
         //
-        context.setTargetRuntime("MyBatis3Simple");
+        context.setTargetRuntime("MyBatis3");
         //配置id 随意设置
         context.setId("mysql");
         //自动识别数据库关键字，默认false，如果设置为true，
@@ -101,15 +101,15 @@ public class Build {
         javaClientGeneratorConfiguration.setTargetPackage("com.zle.dao");
         javaClientGeneratorConfiguration.setTargetProject("src/main/java");
         //配置为注解和xml混合
-        javaClientGeneratorConfiguration.setConfigurationType("MAPPER");
+        javaClientGeneratorConfiguration.setConfigurationType("MIXEDMAPPER");
         javaClientGeneratorConfiguration.addProperty("enableSubPackages","false");
         context.setJavaClientGeneratorConfiguration(javaClientGeneratorConfiguration);
 
 
         TableConfiguration tableConfiguration = new TableConfiguration(context);
         tableConfiguration.setTableName("user");
-        tableConfiguration.setDomainObjectName("userEntity");
-        tableConfiguration.setMapperName("userDao");
+        tableConfiguration.setDomainObjectName("UserEntity");
+        tableConfiguration.setMapperName("UserDao");
 //      type=post且Identity=true时生成的selectKey中order=AFTER;
 //      当type=pre时,identity只能为false,生成的selectKey中order=BEFORE
         GeneratedKey generatedKey=new GeneratedKey("id","MySql",true,"post");
