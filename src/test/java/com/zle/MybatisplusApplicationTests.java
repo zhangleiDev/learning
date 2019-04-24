@@ -1,7 +1,7 @@
 package com.zle;
 
 import com.google.common.base.Strings;
-import com.zle.dao.UserDao;
+import com.zle.dao.UserDao2;
 import com.zle.entity.User;
 import com.zle.service.UserService;
 import org.junit.Assert;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +24,7 @@ public class MybatisplusApplicationTests {
     public void contextLoads() {
     }
     @Autowired
-    private UserDao userDao;
+    private UserDao2 userDao;
     @Autowired
     private UserService userService;
 

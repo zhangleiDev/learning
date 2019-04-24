@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 import java.util.Map;
 
-public interface UserDao extends BaseMapper<User> {
+public interface UserDao2 extends BaseMapper<User> {
 
     public List<User> queryAll();
     public List<User> queryAll(@Param("age")Integer age,@Param("day") String day);

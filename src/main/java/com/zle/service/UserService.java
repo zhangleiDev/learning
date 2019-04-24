@@ -2,8 +2,7 @@ package com.zle.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.zle.dao.UserDao;
+import com.zle.dao.UserDao2;
 import com.zle.entity.User;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -33,7 +32,7 @@ public class UserService {
      */
     public void testSession2(){
         SqlSession sqlSession = sessionFactory.openSession();
-        UserDao mapper = sqlSession.getMapper(UserDao.class);
+        UserDao2 mapper = sqlSession.getMapper(UserDao2.class);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         mapper.queryAll(1,"2019-04-15 15:13:02").forEach(a-> {
             try {
