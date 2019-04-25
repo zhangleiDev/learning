@@ -54,6 +54,8 @@ public class Build {
         PluginConfiguration pluginConfiguration = new PluginConfiguration();
         pluginConfiguration.setConfigurationType("org.mybatis.generator.plugins.SerializablePlugin");
         pluginConfiguration.setConfigurationType("org.mybatis.generator.plugins.ToStringPlugin");
+        //配置自定义生成数据库实体插件
+        pluginConfiguration.setConfigurationType("com.zle.plugins.LombokPlugin");
         context.addPluginConfiguration(pluginConfiguration);
 
 
