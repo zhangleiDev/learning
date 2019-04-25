@@ -50,12 +50,12 @@ public class Build {
         //格式化xml代码
         context.addProperty("xmlFormatter","org.mybatis.generator.api.dom.DefaultXmlFormatter");
 
-        //格式化信息
+        //生成bean插件配置,只能有一个生效
         PluginConfiguration pluginConfiguration = new PluginConfiguration();
         pluginConfiguration.setConfigurationType("org.mybatis.generator.plugins.SerializablePlugin");
         pluginConfiguration.setConfigurationType("org.mybatis.generator.plugins.ToStringPlugin");
         //配置自定义生成数据库实体插件
-        pluginConfiguration.setConfigurationType("com.zle.plugins.LombokPlugin");
+//        pluginConfiguration.setConfigurationType("com.zle.plugins.LombokPlugin");
         context.addPluginConfiguration(pluginConfiguration);
 
 
