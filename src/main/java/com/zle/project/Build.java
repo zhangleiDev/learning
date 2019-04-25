@@ -1,5 +1,7 @@
 package com.zle.project;
 
+import com.zle.plugins.CommonPlugin;
+import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.*;
 import org.mybatis.generator.internal.DefaultShellCallback;
@@ -38,8 +40,8 @@ public class Build {
         context.setId("mysql");
         //自动识别数据库关键字，默认false，如果设置为true，
         //根据SqlReservedWords中定义的关键字列表；一般保留默认值，遇到数据库关键字（Java关键字），
-        //使用columnOverride覆盖
-        context.addProperty("autoDelimitKeywords","true");
+        //使用columnOverride覆盖,字段包含数据库关键字时候需要配置
+        //context.addProperty("autoDelimitKeywords","true");
         //生成的Java文件的编码
         context.addProperty("javaFileEncoding","utf-8");
 
@@ -59,11 +61,13 @@ public class Build {
         //设置是否生成注释
         CommentGeneratorConfiguration commentGeneratorConfiguration = new CommentGeneratorConfiguration();
         //是否屏蔽注释
-        commentGeneratorConfiguration.addProperty("suppressAllComments","true");
+        //commentGeneratorConfiguration.addProperty("suppressAllComments","true");
         //是否屏蔽注释日期
         commentGeneratorConfiguration.addProperty("suppressDate","true");
         //是否添加数据库备注 没起作用
-        //commentGeneratorConfiguration.addProperty("addRemarkComments","true");
+        commentGeneratorConfiguration.addProperty("addRemarkComments","true");
+        //配置自定义注释生成插件
+        commentGeneratorConfiguration.setConfigurationType("com.zle.plugins.CommonPlugin");
         context.setCommentGeneratorConfiguration(commentGeneratorConfiguration);
 
         //设置连接数据库
