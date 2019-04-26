@@ -6,7 +6,10 @@ import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.Interface;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
+import org.mybatis.generator.config.Context;
+import org.mybatis.generator.internal.util.StringUtility;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class LombokPlugin extends PluginAdapter {
@@ -26,6 +29,59 @@ public class LombokPlugin extends PluginAdapter {
      */
     public boolean validate(List<String> warnings) {
         return true;
+    }
+    @Override
+    public void setProperties(Properties properties) {
+        super.setProperties(properties);
+
+
+        //配置需要生成那些lombok注解,more为data
+        //@Data is default annotation
+//        annotations.add(Annotations.GETTER);
+//        annotations.add(Annotations.SETTER);
+        Context context = getContext();
+
+        String lombokType = context.getProperty("lombokType");
+        if(!StringUtility.stringHasValue(lombokType)){
+            annotations.add(Annotations.DATA);
+        }else {
+            String[] typs = lombokType.split(",");
+            for (String typ : typs) {
+                if(Annotations.getValueOf(typ) != null){
+                    annotations.add(Annotations.getValueOf(typ));
+                }else {
+                    System.out.println("lombokType Error:找不到"+typ+"属性!");
+                }
+            }
+
+        }
+
+        for (String annotationName : properties.stringPropertyNames()) {
+            if (annotationName.contains(".")) {
+                // Not an annotation name
+                continue;
+            }
+            String value = properties.getProperty(annotationName);
+            if (!Boolean.parseBoolean(value)) {
+                // The annotation is disabled, skip it
+                continue;
+            }
+            Annotations annotation = Annotations.getValueOf(annotationName);
+            if (annotation == null) {
+                continue;
+            }
+            String optionsPrefix = annotationName + ".";
+            for (String propertyName : properties.stringPropertyNames()) {
+                if (!propertyName.startsWith(optionsPrefix)) {
+                    // A property not related to this annotation
+                    continue;
+                }
+                String propertyValue = properties.getProperty(propertyName);
+                annotation.appendOptions(propertyName, propertyValue);
+                annotations.add(annotation);
+                annotations.addAll(Annotations.getDependencies(annotation));
+            }
+        }
     }
 
     /**
@@ -140,41 +196,7 @@ public class LombokPlugin extends PluginAdapter {
         }
     }
 
-    @Override
-    public void setProperties(Properties properties) {
-        super.setProperties(properties);
-        //配置需要生成那些lombok注解,more为data
-        //@Data is default annotation
-        annotations.add(Annotations.GETTER);
-        annotations.add(Annotations.SETTER);
 
-        for (String annotationName : properties.stringPropertyNames()) {
-            if (annotationName.contains(".")) {
-                // Not an annotation name
-                continue;
-            }
-            String value = properties.getProperty(annotationName);
-            if (!Boolean.parseBoolean(value)) {
-                // The annotation is disabled, skip it
-                continue;
-            }
-            Annotations annotation = Annotations.getValueOf(annotationName);
-            if (annotation == null) {
-                continue;
-            }
-            String optionsPrefix = annotationName + ".";
-            for (String propertyName : properties.stringPropertyNames()) {
-                if (!propertyName.startsWith(optionsPrefix)) {
-                    // A property not related to this annotation
-                    continue;
-                }
-                String propertyValue = properties.getProperty(propertyName);
-                annotation.appendOptions(propertyName, propertyValue);
-                annotations.add(annotation);
-                annotations.addAll(Annotations.getDependencies(annotation));
-            }
-        }
-    }
 
     @Override
     public boolean clientGenerated(
