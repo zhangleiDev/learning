@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Build {
 
-    private static final String DBURL="jdbc:mysql://localhost:3306/demo";
+    private static final String DBURL="jdbc:mysql://localhost:3306/my";
     private static final String DBNAME="root";
     private static final String DBPWD="root1234";
 
@@ -23,6 +23,7 @@ public class Build {
             String tableName="user";
             /*配置项*/
             Configuration config = getGeneratedKeyConfig(tableName);
+//            Configuration config = getConfig(tableName);
 
             DefaultShellCallback callback = new DefaultShellCallback(overwrite);
             MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
@@ -101,7 +102,6 @@ public class Build {
         //是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.）
         javaTypeResolverConfiguration.addProperty("forceBigDecimals","false");
         context.setJavaTypeResolverConfiguration(javaTypeResolverConfiguration);
-
 
         //生成实体类的地址
         JavaModelGeneratorConfiguration javaModelGeneratorConfiguration = new JavaModelGeneratorConfiguration();
