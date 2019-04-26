@@ -1,5 +1,5 @@
 use my;
-CREATE TABLE `user`
+
 CREATE TABLE `user` (
   `id` int(5) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `name` varchar(30) DEFAULT NULL COMMENT '姓名',
@@ -9,7 +9,7 @@ CREATE TABLE `user` (
   `date_time` datetime DEFAULT NULL,
   `stamp` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 
 INSERT INTO user (id, name, age, email) VALUES
@@ -19,3 +19,18 @@ INSERT INTO user (id, name, age, email) VALUES
 (4, 'Sandy', 21, 'test4@baomidou.com'),
 (5, 'Billie', 24, 'test5@baomidou.com'),
 (6, 'haha', 10, 'fw@r23.cn');
+
+CREATE TABLE `book_oder` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `uid` int(11) NOT NULL COMMENT '用户id',
+  `bid` int(11) NOT NULL COMMENT '书籍id',
+  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订阅日期',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订阅表';
+
+CREATE TABLE `book` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` int(11) NOT NULL COMMENT '书名',
+  `price` varchar(5) COMMENT '价格',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='书籍表';
