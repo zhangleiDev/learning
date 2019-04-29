@@ -1,12 +1,19 @@
 package com.zle.entity.db;
 
 import java.util.Date;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+@ToString
 @Getter
 @Setter
 public class UserEntity {
+
+    List<BookEntity> books;
+    BookEntity book;
     /**
      * id
      *   主键ID

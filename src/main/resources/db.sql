@@ -20,17 +20,34 @@ INSERT INTO user (id, name, age, email) VALUES
 (5, 'Billie', 24, 'test5@baomidou.com'),
 (6, 'haha', 10, 'fw@r23.cn');
 
-CREATE TABLE `book_oder` (
+
+drop table if exists  book_order;
+
+CREATE TABLE `book_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `uid` int(11) NOT NULL COMMENT '用户id',
   `bid` int(11) NOT NULL COMMENT '书籍id',
   `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '订阅日期',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订阅表';
+insert into book_order values
+(null,1,1,null),
+(null,1,2,null),
+(null,1,3,null),
+(null,1,4,null),
+(null,2,2,null),
+(null,2,3,null),
+(null,3,4,null);
 
+drop table if exists book;
 CREATE TABLE `book` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name` int(11) NOT NULL COMMENT '书名',
+  `name` varchar(11) NOT NULL COMMENT '书名',
   `price` varchar(5) COMMENT '价格',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='书籍表';
+insert into book values
+(null,'java内幕','100'),
+(null,'高性能mysql','50'),
+(null,'spring源码解析','80'),
+(null,'python入门','60');

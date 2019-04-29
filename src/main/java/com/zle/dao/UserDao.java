@@ -1,5 +1,6 @@
 package com.zle.dao;
 
+import com.zle.entity.db.BookEntity;
 import com.zle.entity.db.UserEntity;
 import com.zle.entity.db.UserEntityExample;
 import java.util.List;
@@ -65,4 +66,15 @@ public interface UserDao {
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(UserEntity record);
+
+
+    /**
+     * 查询人员订阅信息
+     * @return
+     */
+    List<UserEntity> selectOrders();
+
+
+    List<UserEntity> selectOrders2();
+    List<UserEntity> selectOrders3();
 }

@@ -209,4 +209,42 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <!--
+      一对一
+
+      select="com.zle.dao.BookDao.selectbookByid"
+              com.zle.dao.BookDao 为对应mapper.xml的命名空间, dao中注解形式的方法是调用不到的.
+      column="{id=bid}"
+             bid当前sql查询返回结果,id:selectbookByid方法接受的参数,如果要传递多个值用{id=bid,name=bname}
+      fetchType="eager"
+           配置是否延时加载,默认为eager,当配置为lazy时只有当调用getBook()s或者对象的eqals,clone,hashCode,toStrin方法时才会查询
+   -->
+  <resultMap id="selectOrdersMap" type="com.zle.entity.db.UserEntity" extends="BaseResultMap">
+    <association property="book" column="{id=bid}"
+                 select="com.zle.dao.BookDao.selectbookByid" fetchType="eager"/>
+  </resultMap>
+
+  <select id="selectOrders" parameterType="com.zle.entity.db.UserEntityExample" resultMap="selectOrdersMap">
+    select u.name,u.email,bo.bid bid
+     from user u left JOIN book_order bo  ON u.id=bo.uid
+  </select>
+  <!-- 一对多1 -->
+  <resultMap id="ordersMap" type="com.zle.entity.db.UserEntity" extends="BaseResultMap">
+    <collection property="books" column="{id=bid}" select="com.zle.dao.BookDao.selectbookByid" />
+  </resultMap>
+  <select id="selectOrders2" parameterType="com.zle.entity.db.UserEntityExample" resultMap="ordersMap">
+    select u.*,bo.bid bid
+     from user u left JOIN book_order bo  ON u.id=bo.uid
+  </select>
+
+  <!-- 一对多2 -->
+  <resultMap id="ordersMap2" type="com.zle.entity.db.UserEntity" extends="BaseResultMap">
+    <collection property="books" columnPrefix="book_" resultMap="com.zle.dao.BookDao.BaseResultMap"/>
+  </resultMap>
+  <select id="selectOrders3" parameterType="com.zle.entity.db.UserEntityExample" resultMap="ordersMap2">
+    select u.*,b.name as book_name,b.price as book_price
+     from  user u
+     left join book_order bo on u.id=bo.uid
+     LEFT JOIN book b on bo.bid=b.id
+  </select>
 </mapper>

@@ -1,8 +1,11 @@
 package com.zle;
 
 import com.google.common.base.Strings;
+import com.zle.dao.BookDao;
+import com.zle.dao.UserDao;
 import com.zle.dao.UserDao2;
 import com.zle.entity.User;
+import com.zle.entity.db.UserEntity;
 import com.zle.service.UserService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,11 +28,65 @@ public class MybatisplusApplicationTests {
     }
     @Autowired
     private UserDao2 userDao;
+
+    @Autowired
+    private UserDao uDao;
     @Autowired
     private UserService userService;
 
 
+    /**
+     * 关联查询 一对多
+     * 查询一次数据库,由mybatis将重复的数据进行合并生成集合
+     *
+     */
+    @Test
+    public void oneToMany2() {
 
+        List<UserEntity> userList = uDao.selectOrders3();
+
+        userList.forEach(System.out::println);
+
+    }
+    /**
+     * 关联查询 一对多
+     */
+    @Test
+    public void oneToMany() {
+
+        List<UserEntity> userList = uDao.selectOrders2();
+
+        userList.forEach(System.out::println);
+
+    }
+
+    /**
+     * 关联查询 一对一
+     */
+    @Test
+    public void oneToOne() {
+
+        List<UserEntity> userList = uDao.selectOrders();
+
+        userList.forEach(e-> {
+            System.out.println("**********************");
+            System.out.println(e.getBook());
+
+        });
+
+    }
+
+    /**
+     * 关联查询 一对一
+     */
+    @Test
+    public void testBookDao1() {
+
+        List<UserEntity> userList = uDao.selectOrders();
+
+        userList.forEach(System.out::println);
+
+    }
     /**
      * if test 使用自定义方法判断
      */
