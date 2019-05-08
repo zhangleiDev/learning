@@ -5,6 +5,7 @@ import com.zle.dao.BookDao;
 import com.zle.dao.UserDao;
 import com.zle.dao.UserDao2;
 import com.zle.entity.User;
+import com.zle.entity.db.BookEntity;
 import com.zle.entity.db.UserEntity;
 import com.zle.service.UserService;
 import org.apache.ibatis.session.SqlSession;
@@ -36,15 +37,67 @@ public class MybatisplusApplicationTests {
     @Autowired
     private UserDao uDao;
     @Autowired
+    private BookDao bookDao;
+    @Autowired
     private UserService userService;
     @Autowired
     SqlSessionFactory factory;
 
     /**
-     * 测试二级缓存
+     * 二级缓存脏数据
+     * 当多表关联查询时如果其它命名空间执行了表数据跟新操作当前缓存不会情况,此时就产生了脏数据.
      */
     @Test
-    public void cacheTest1() {
+    public void cacheTest4() {
+
+        UserEntity entity1 = uDao.selectKey();
+        System.out.println("**********首次查询*****************");
+        System.out.println(entity1.getName()+" "
+                +entity1.getBook().getName()+"-"
+                +entity1.getBook().getPrice());
+
+        UserEntity entity2 = uDao.selectKey();
+        System.out.println("**********二次查询*****************");
+        System.out.println(entity2.getName()+" "
+                +entity2.getBook().getName()+"-"
+                +entity2.getBook().getPrice());
+
+
+        BookEntity bookEntity = bookDao.selectByPrimaryKey(1);
+        bookEntity.setPrice("222");
+        bookDao.updateByPrimaryKey(bookEntity);
+
+        UserEntity entity3 = uDao.selectKey();
+        System.out.println("**********书价格已经修改*****************");
+        System.out.println(entity3.getName()+" "
+                +entity3.getBook().getName()+"-"
+                +entity3.getBook().getPrice());
+
+        BookEntity bookEntity2 = bookDao.selectByPrimaryKey(1);
+        System.out.println("**********现在的书价格是*****************");
+        System.out.println(bookEntity2.getName()+"-"+bookEntity2.getPrice());
+    }
+    /**
+     * 测试二级缓存
+     * delete update insert 会清空缓存
+     * 只要在同一个命名空间内执行以上操作就会清空缓存,和具体对哪个表执行没有关系.
+     */
+    @Test
+    public void cacheTest3() {
+        uDao.selectByPrimaryKey(1);
+        uDao.selectByPrimaryKey(1);
+        uDao.deleteBook();
+        System.out.println("********************执行了删除操作******************");
+        uDao.selectByPrimaryKey(1);
+
+    }
+    /**
+     * 测试二级缓存
+     * 二级缓存作用域为命名空间,在不同的sqlsession中可以使用同一个缓存
+     *
+     */
+    @Test
+    public void cacheTest2() {
 
         uDao.selectByPrimaryKey(1);
         uDao.selectByPrimaryKey(1);
@@ -76,7 +129,7 @@ public class MybatisplusApplicationTests {
      * 2.实际开发中一级缓存基本用不到,因为和spring结合,每次使用dao都会重新打开和关闭sqlSession
      */
     @Test
-    public void contextLoads() {
+    public void cacheTest1() {
         SqlSession sqlSession = factory.openSession();
         UserDao dao = sqlSession.getMapper(UserDao.class);
         System.out.println(dao.selectByPrimaryKey(1));

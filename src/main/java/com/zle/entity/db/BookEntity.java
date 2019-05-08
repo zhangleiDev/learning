@@ -4,11 +4,15 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 //@ToString
 @Getter
 @Setter
-public class BookEntity {
+public class BookEntity implements Serializable {
 
+
+    private static final long serialVersionUID = 6979733651869140304L;
     /**
      * id
      *   主键

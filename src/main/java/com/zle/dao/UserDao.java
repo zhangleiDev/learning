@@ -109,4 +109,24 @@ public interface UserDao {
 
     List<UserEntity> selectOrders2();
     List<UserEntity> selectOrders3();
+
+    @Delete("delete from book where id=10000")
+    int deleteBook();
+
+    /**
+     * 查询一条记录
+     * @return
+     */
+    @Select({
+            "select",
+            "a.name,c.name as 'book.name',c.price as 'book.price'",
+            "from user a left join book_order b ",
+            "on a.id=b.uid",
+            "left join book c",
+            "on b.bid=c.id",
+            "where a.id = 1 and c.id=1"
+    })
+    @ResultMap("com.zle.dao.UserDao.BaseResultMap")
+    UserEntity selectKey();
+
 }
