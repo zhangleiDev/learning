@@ -1,5 +1,6 @@
 package com.zle.entity.db;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,8 +11,9 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-public class UserEntity {
+public class UserEntity implements Serializable {
 
+    private static final long serialVersionUID = -4033590196742367785L;
     List<BookEntity> books;
     BookEntity book;
     /**

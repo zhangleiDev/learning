@@ -7,6 +7,8 @@ import com.zle.dao.UserDao2;
 import com.zle.entity.User;
 import com.zle.entity.db.UserEntity;
 import com.zle.service.UserService;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,17 +24,69 @@ import java.util.Map;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MybatisplusApplicationTests {
-
-    @Test
-    public void contextLoads() {
-    }
+    /**
+     * 手动创建的dao
+     */
     @Autowired
     private UserDao2 userDao;
 
+    /**
+     * 脚本生成的dao
+     */
     @Autowired
     private UserDao uDao;
     @Autowired
     private UserService userService;
+    @Autowired
+    SqlSessionFactory factory;
+
+    /**
+     * 测试二级缓存
+     */
+    @Test
+    public void cacheTest1() {
+
+        uDao.selectByPrimaryKey(1);
+        uDao.selectByPrimaryKey(1);
+        uDao.selectByPrimaryKey(1);
+        uDao.selectByPrimaryKey(3);
+        uDao.selectByPrimaryKey(3);
+        // 1.UserDao接口配置为 readWrite = false 缓存拿到的是同一个地址对象,以下结果为true
+        // 2.当 readWrite = true时 缓存拿到的对象是原对象的反序列化对象,不是同一个,修改对象的属性不会影响到其它线程,,以下结果为false
+        System.out.println(uDao.selectByPrimaryKey(1)==uDao.selectByPrimaryKey(1));
+        uDao.selectByPrimaryKey(1).setAge(110);
+        System.out.println(uDao.selectByPrimaryKey(1).getAge());
+        //测试缓存过期
+//        try {
+//            Thread.sleep(15000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        System.out.println("*********缓存过期,将重新查询数据库**************");
+        uDao.selectByPrimaryKey(1);
+        uDao.selectByPrimaryKey(3);
+
+    }
+
+
+    /**
+     * 测试一级缓存
+     *
+     * 1.一级缓存作用域为sqlSession,一级缓存默认生效,缓存拿到的是同一个对象.
+     * 2.实际开发中一级缓存基本用不到,因为和spring结合,每次使用dao都会重新打开和关闭sqlSession
+     */
+    @Test
+    public void contextLoads() {
+        SqlSession sqlSession = factory.openSession();
+        UserDao dao = sqlSession.getMapper(UserDao.class);
+        System.out.println(dao.selectByPrimaryKey(1));
+        System.out.println(dao.selectByPrimaryKey(1));
+        //同一个内存对象
+        System.out.println(dao.selectByPrimaryKey(1)==dao.selectByPrimaryKey(1));
+        System.out.println(dao.selectByPrimaryKey(3));
+        sqlSession.close();
+
+    }
 
 
     /**
@@ -179,6 +233,7 @@ public class MybatisplusApplicationTests {
     }
     @Test
     public void testQueryAll2(){
+        System.out.println(userDao.queryId(1));
         System.out.println(userDao.queryId(1));
        System.out.println(userDao.queryAll2());
     }
