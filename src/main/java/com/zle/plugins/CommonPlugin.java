@@ -11,6 +11,9 @@ import java.text.SimpleDateFormat;
 import java.util.Properties;
 import java.util.Set;
 
+/**
+ * 自定义注释插件
+ */
 public class CommonPlugin implements CommentGenerator {
 
     private Properties properties = new Properties();

@@ -43,12 +43,14 @@ public class MybatisplusApplicationTests {
     @Autowired
     SqlSessionFactory factory;
 
+
     /**
      * 二级缓存脏数据
      * 当多表关联查询时如果其它命名空间执行了表数据跟新操作当前缓存不会情况,此时就产生了脏数据.
      */
     @Test
     public void cacheTest4() {
+
 
         UserEntity entity1 = uDao.selectKey();
         System.out.println("**********首次查询*****************");
@@ -64,7 +66,7 @@ public class MybatisplusApplicationTests {
 
 
         BookEntity bookEntity = bookDao.selectByPrimaryKey(1);
-        bookEntity.setPrice("222");
+        bookEntity.setPrice("333");
         bookDao.updateByPrimaryKey(bookEntity);
 
         UserEntity entity3 = uDao.selectKey();

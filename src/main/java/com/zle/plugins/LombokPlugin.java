@@ -12,6 +12,9 @@ import org.mybatis.generator.internal.util.StringUtility;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * mybatis generator 引入Lombok
+ */
 public class LombokPlugin extends PluginAdapter {
 
     private final Collection<Annotations> annotations;
