@@ -2,10 +2,18 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <settings>
-    <setting name="cacheEnabled" value="false"/>
+        <setting name="cacheEnabled" value="true"/>
+        <setting name="logImpl" value="STDOUT_LOGGING" />
     </settings>
-<!--<settings>-->
-    <!--<setting name="cacheEnabled" value="false"/>-->
-<!--</settings>-->
+    <plugins>
+        <!--<plugin interceptor="com.zle.plugins.mybatis.ExecuteInterceptor">-->
+            <!--<property name="pro1" value="hehe"></property>-->
+            <!--<property name="pro2" value="haha"></property>-->
+        <!--</plugin>-->
 
+        <plugin interceptor="com.zle.plugins.mybatis.ExecuteInterceptor">
+            <property name="pro1" value="hehe"></property>
+            <property name="pro2" value="haha"></property>
+        </plugin>
+    </plugins>
 </configuration>

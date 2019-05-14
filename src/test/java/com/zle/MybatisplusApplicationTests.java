@@ -42,7 +42,12 @@ public class MybatisplusApplicationTests {
     private UserService userService;
     @Autowired
     SqlSessionFactory factory;
+    @Test
+    public void updateTest() {
 
+        UserEntity entity = uDao.selectByPrimaryKey(1);
+        uDao.updateByPrimaryKey(entity);
+    }
 
     /**
      * 二级缓存脏数据
