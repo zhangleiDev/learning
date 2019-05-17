@@ -48,10 +48,20 @@ public class MybatisplusApplicationTests {
     private RedisTemplate<String, String> redisTemplate;
 
     @Test
+    public void pluginTest() {
+
+        uDao.selectPrimaryKey(1);
+    }
+
+    @Test
     public void redisTest() {
 
         redisTemplate.opsForValue().set("aaa",String.valueOf(System.currentTimeMillis()));
     }
+
+    /**
+     * redis缓存
+     */
     @Test
     public void updateTest() {
 

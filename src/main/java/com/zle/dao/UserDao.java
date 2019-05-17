@@ -4,6 +4,7 @@ import com.zle.entity.db.BookEntity;
 import com.zle.entity.db.UserEntity;
 import com.zle.entity.db.UserEntityExample;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.cache.decorators.FifoCache;
@@ -128,5 +129,15 @@ public interface UserDao {
     })
     @ResultMap("com.zle.dao.UserDao.BaseResultMap")
     UserEntity selectKey();
+
+
+    @Select({
+            "select",
+            "id, name, age, email, date, date_time, stamp",
+            "from user",
+            "where id = #{id,jdbcType=INTEGER}"
+    })
+    @ResultType(Map.class)
+    Map selectPrimaryKey(Integer id);
 
 }
