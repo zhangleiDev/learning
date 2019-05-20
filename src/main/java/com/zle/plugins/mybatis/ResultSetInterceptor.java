@@ -29,6 +29,7 @@ public class ResultSetInterceptor implements Interceptor {
 
     @Override
     public void setProperties(Properties properties) {
+        //此处能获取xml配置文件的属性
         System.out.println(111111);
     }
     private void processMap(Map<String, Object> map) {
@@ -38,31 +39,30 @@ public class ResultSetInterceptor implements Interceptor {
 
      if( (key.charAt (0) >= 'A' && key.charAt(0) <= 'z')
         || key. indexOf ("-") >= 0) {
-         Object value= map . get(key) ;
+         Object value= map.get(key) ;
          map.remove(key);
          map.put(underlineToCamelhump(key) , value) ;}
      }
     }
-
     public static String underlineToCamelhump(String inputString) {
         StringBuilder sb =new StringBuilder();
         boolean nextUpperCase = false ;
-        for (int i = 0 ; i < inputString.length(); i++) {
-            char c = inputString . charAt(i) ;
-            if (c == '_' ){
-                if (sb.length() > 0) {
-                    nextUpperCase = true;
-                } else {
-                    if (nextUpperCase) {
-                        sb.append(Character.toUpperCase(c));
-                        nextUpperCase = false;
-                    } else {
-
-                    }
-                }
+        if(inputString.indexOf("_")==-1){
+            return inputString;
+        }
+        String[] split = inputString.split("_");
+        for (int i = 0; i < split.length; i++) {
+            if( i==0 && split[i] == ""){
+                continue;
+            }
+            if(sb.length()>0){
+                sb.append(Character.toUpperCase(split[i].charAt(0)))
+                        .append(split[i].substring(1)).toString();
+            }else {
+                sb.append(split[i]);
             }
         }
-        return sb.toString() ;
+        return sb.toString();
     }
 
 

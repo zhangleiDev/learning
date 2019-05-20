@@ -26,6 +26,7 @@ import java.util.Map;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MybatisplusApplicationTests {
+
     /**
      * 手动创建的dao
      */
@@ -50,7 +51,9 @@ public class MybatisplusApplicationTests {
     @Test
     public void pluginTest() {
 
-        uDao.selectPrimaryKey(1);
+        Map map = uDao.selectPrimaryKey(1);
+        UserEntity entity = uDao.selectByPrimaryKey(1);
+        System.out.println(map.get("id"));
     }
 
     @Test
