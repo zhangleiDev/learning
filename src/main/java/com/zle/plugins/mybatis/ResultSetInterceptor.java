@@ -6,6 +6,9 @@ import org.apache.ibatis.plugin.*;
 import java.sql.Statement;
 import java.util.*;
 
+/**
+ * Map驼峰命名拦截器
+ */
 @Intercepts(@Signature(type = ResultSetHandler.class,
         method = "handleResultSets",args = {Statement.class}))
 public class ResultSetInterceptor implements Interceptor {

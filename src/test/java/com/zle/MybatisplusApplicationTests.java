@@ -52,7 +52,7 @@ public class MybatisplusApplicationTests {
     public void pluginTest() {
 
         Map map = uDao.selectPrimaryKey(1);
-        UserEntity entity = uDao.selectByPrimaryKey(1);
+        //UserEntity entity = uDao.selectByPrimaryKey(1);
         System.out.println(map.get("id"));
     }
 

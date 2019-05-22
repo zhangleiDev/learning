@@ -11,5 +11,8 @@
             <property name="pro1" value="hehe"></property>
             <property name="pro2" value="haha"></property>
         </plugin>
+
+        <plugin interceptor="com.zle.plugins.mybatis.QueryInterceptor">
+        </plugin>
     </plugins>
 </configuration>
