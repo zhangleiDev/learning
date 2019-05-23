@@ -6,10 +6,10 @@ import java.lang.reflect.Method;
 /**
  * 基于JDK代理
  */
-public class CarHandler implements InvocationHandler {
+public class JdkCarHandler implements InvocationHandler {
     private Car car;
 
-    public CarHandler(Car car) {
+    public JdkCarHandler(Car car) {
         this.car = car;
     }
     /**
