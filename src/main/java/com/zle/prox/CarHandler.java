@@ -13,7 +13,7 @@ public class CarHandler implements InvocationHandler {
         this.car = car;
     }
     /**
-     * 会拦截到所有的接口方法
+     * 会拦截到所有的接口方法,实现类中的其它非接口方法不会被拦截
      */
     @Override
     public Object invoke(Object o, Method method, Object[] args) throws Throwable {

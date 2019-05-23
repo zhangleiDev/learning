@@ -4,6 +4,9 @@ import java.lang.reflect.Proxy;
 
 /**
  * jdk代理测试
+ *
+ * 会拦截到所有的接口方法,实现类中的其它非接口方法不会被拦截
+ * jdk动态代理必须依赖接口,也叫接口代理
  */
 public class TestJdk {
     public static void main(String[] args) {
