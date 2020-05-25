@@ -20,7 +20,7 @@ public class Build {
             List<String> warnings = new ArrayList<String>();
             boolean overwrite = true;
             //表名
-            String tableName="book_order";
+            String tableName="phone_power";
             /*配置项*/
             Configuration config = getGeneratedKeyConfig(tableName);
 //            Configuration config = getConfig(tableName);

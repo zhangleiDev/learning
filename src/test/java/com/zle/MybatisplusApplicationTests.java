@@ -318,7 +318,7 @@ public class MybatisplusApplicationTests {
     public void testQueryAll2(){
         System.out.println(userDao.queryId(1));
         System.out.println(userDao.queryId(1));
-       System.out.println(userDao.queryAll2());
+//       System.out.println(userDao.queryAll2());
     }
 
     @Test

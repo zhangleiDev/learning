@@ -27,9 +27,9 @@ public interface UserDao2 extends BaseMapper<User> {
      * queryId 先执行后此处的id:aaa 再能获取到. 不然报错
      * @return
      */
-    @ResultMap("aaa")
-    @Select("select * from user" )
-    public List<User2> queryAll2();
+//    @ResultMap("aaa")
+//    @Select("select * from user" )
+//    public List<User2> queryAll2();
 
     /**
      * 通过 useGeneratedKeys
