@@ -30,6 +30,8 @@ public class PhonePowerService {
 
         QueryWrapper<PhonePowerEntity> wrapper = new QueryWrapper();
 
+        PhonePowerEntity phonePowerEntity = phonePowerDao.selectByPrimaryKey(6);
+
         IPage iPage = phonePowerDao.selectMapsPage(page, wrapper);
         result.put("rows",iPage.getRecords());
         result.put("total",iPage.getTotal());

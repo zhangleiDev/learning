@@ -24,21 +24,18 @@ public class PhonePowerEntity {
      * power
      *   电量
      */
-    @TableField(value = "power")
     private String power;
 
     /**
-     * create_Time
+     * create_time
      *   创建时间
      */
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @TableField(value = "createTime")
     private Date createTime;
 
     /**
      * uid
      *   用户标识
      */
-    @TableField(value = "uid")
     private String uid;
 }

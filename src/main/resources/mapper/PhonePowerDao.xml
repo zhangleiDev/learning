@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.zle.entity.db.PhonePowerEntity">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="power" jdbcType="VARCHAR" property="power" />
-    <result column="create_Time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="uid" jdbcType="VARCHAR" property="uid" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, power, create_Time, uid
+    id, power, create_time, uid
   </sql>
   <select id="selectByExample" parameterType="com.zle.entity.db.PhonePowerEntityExample" resultMap="BaseResultMap">
     select
@@ -98,7 +98,7 @@
         power,
       </if>
       <if test="createTime != null">
-        create_Time,
+        create_time,
       </if>
       <if test="uid != null">
         uid,
@@ -132,7 +132,7 @@
         power = #{record.power,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
-        create_Time = #{record.createTime,jdbcType=TIMESTAMP},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.uid != null">
         uid = #{record.uid,jdbcType=VARCHAR},
@@ -146,7 +146,7 @@
     update phone_power
     set id = #{record.id,jdbcType=INTEGER},
       power = #{record.power,jdbcType=VARCHAR},
-      create_Time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
       uid = #{record.uid,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -159,7 +159,7 @@
         power = #{power,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
-        create_Time = #{createTime,jdbcType=TIMESTAMP},
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="uid != null">
         uid = #{uid,jdbcType=VARCHAR},

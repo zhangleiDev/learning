@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 
 @Mapper
-public interface PhonePowerDao extends BaseMapper {
+public interface PhonePowerDao extends BaseMapper<PhonePowerEntity> {
     long countByExample(PhonePowerEntityExample example);
 
     int deleteByExample(PhonePowerEntityExample example);
@@ -26,7 +26,7 @@ public interface PhonePowerDao extends BaseMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into phone_power (power, create_Time, ",
+        "insert into phone_power (power, create_time, ",
         "uid)",
         "values (#{power,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{uid,jdbcType=VARCHAR})"
@@ -40,7 +40,7 @@ public interface PhonePowerDao extends BaseMapper {
 
     @Select({
         "select",
-        "id, power, create_Time, uid",
+        "id, power, create_time, uid",
         "from phone_power",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -56,7 +56,7 @@ public interface PhonePowerDao extends BaseMapper {
     @Update({
         "update phone_power",
         "set power = #{power,jdbcType=VARCHAR},",
-          "create_Time = #{createTime,jdbcType=TIMESTAMP},",
+          "create_time = #{createTime,jdbcType=TIMESTAMP},",
           "uid = #{uid,jdbcType=VARCHAR}",
         "where id = #{id,jdbcType=INTEGER}"
     })
