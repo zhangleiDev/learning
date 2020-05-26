@@ -1,6 +1,7 @@
 package com.zle.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Maps;
@@ -25,17 +26,18 @@ public class PhonePowerService {
     public Map<String,Object> queryForpage(Integer pageNo,Integer size){
 
         Map<String,Object> result= Maps.newHashMap();
-        PhonePowerEntityExample example = new PhonePowerEntityExample();
+
         Page<PhonePowerEntity> page = new Page(pageNo,size);
 
         QueryWrapper<PhonePowerEntity> wrapper = new QueryWrapper();
-
-        PhonePowerEntity phonePowerEntity = phonePowerDao.selectByPrimaryKey(6);
 
         IPage iPage = phonePowerDao.selectMapsPage(page, wrapper);
         result.put("rows",iPage.getRecords());
         result.put("total",iPage.getTotal());
         return result;
+    }
+    public PhonePowerEntity getLatest(){
+        return phonePowerDao.selectLatestOne();
     }
 
 }

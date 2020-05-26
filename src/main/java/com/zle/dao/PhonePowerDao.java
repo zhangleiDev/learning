@@ -61,4 +61,13 @@ public interface PhonePowerDao extends BaseMapper<PhonePowerEntity> {
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(PhonePowerEntity record);
+
+    @Select({
+            "select",
+            "id, power, create_time, uid",
+            "from phone_power",
+            "where id = (select max(id) from phone_power)"
+    })
+    @ResultMap("com.zle.dao.PhonePowerDao.BaseResultMap")
+    PhonePowerEntity selectLatestOne();
 }
